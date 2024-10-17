@@ -154,29 +154,42 @@ function wptheme_scripts() {
 add_action( 'wp_enqueue_scripts', 'wptheme_scripts' );
 
 /**
- * Implement the Custom Header feature.
+ * Svg support
  */
-require get_template_directory() . '/inc/custom-header.php';
 
-/**
- * Custom template tags for this theme.
- */
-require get_template_directory() . '/inc/template-tags.php';
-
-/**
- * Functions which enhance the theme by hooking into WordPress.
- */
-require get_template_directory() . '/inc/template-functions.php';
-
-/**
- * Customizer additions.
- */
-require get_template_directory() . '/inc/customizer.php';
-
-/**
- * Load Jetpack compatibility file.
- */
-if ( defined( 'JETPACK__VERSION' ) ) {
-	require get_template_directory() . '/inc/jetpack.php';
+function allow_svg_uploads( $mime_types ) {
+    $mime_types['svg'] = 'image/svg+xml';
+    return $mime_types;
 }
+add_filter( 'upload_mimes', 'allow_svg_uploads' );
 
+
+function sanitize_svg_file( $file ) {
+    if ( 'image/svg+xml' === $file['type'] ) {
+        // Get SVG content
+        $svg_content = file_get_contents( $file['tmp_name'] );
+
+        // Use SVG Sanitizer
+        require_once ABSPATH . 'vendor/autoload.php';
+        $sanitizer = new \enshrined\svgSanitize\Sanitizer();
+        $clean_svg = $sanitizer->sanitize( $svg_content );
+
+        if ( $clean_svg ) {
+            // Write sanitized content back to file
+            file_put_contents( $file['tmp_name'], $clean_svg );
+        } else {
+            // If sanitization fails, return an error
+            $file['error'] = __( 'Sorry, the SVG file could not be sanitized.' );
+        }
+    }
+    return $file;
+}
+add_filter( 'wp_handle_upload_prefilter', 'sanitize_svg_file' );
+
+function restrict_svg_uploads_to_admins( $mime_types ) {
+    if ( ! current_user_can( 'administrator' ) ) {
+        unset( $mime_types['svg'] );
+    }
+    return $mime_types;
+}
+add_filter( 'upload_mimes', 'restrict_svg_uploads_to_admins' );

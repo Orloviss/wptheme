@@ -34,7 +34,6 @@
 			<img src=""/>
 </a>
 		<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'remont' ); ?></button>
 			<?php
 			wp_nav_menu(
 				array(
@@ -47,18 +46,17 @@
 		</nav>
 		
 		<div class="btn_row popup__btn">
-			<div class="burger"><img src="/wp-content/uploads/2024/07/burger-menu-svgrepo-com.svg"/></div>
+			<div class="burger"><img src=""/></div>
 		</div>
 	
 		</div>
-	</header><!-- #header -->
+	</header>
 <section class="burger-menu">
 	<div class="container flex-col">
 		<button class="close-icon">
 			<img src=""/>
 		</button>
-	<nav id="site-navigation" class="main-navigation">
-			<button class="menu-toggle" aria-controls="primary-menu" aria-expanded="false"><?php esc_html_e( 'Primary Menu', 'remont' ); ?></button>
+	<nav id="mobile-navigation" class="mobile-navigation">
 			<?php
 			wp_nav_menu(
 				array(

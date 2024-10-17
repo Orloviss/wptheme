@@ -13,8 +13,8 @@
 
 	<footer id="colophon" class="site-footer">
 	
-	</footer><!-- #colophon -->
-</div><!-- #page -->
+	</footer>
+</div>
 
 <?php wp_footer(); ?>
 
