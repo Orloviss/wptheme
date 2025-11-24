@@ -3,42 +3,20 @@
 window.onscroll = function () { myFunction() };
 
 var header = document.getElementById("header");
-var sticky = header.offsetTop;
-function myFunction() {
-    if (window.pageYOffset > sticky) {
-        header.classList.add("sticky");
-    } else {
-        header.classList.remove("sticky");
+
+if (header) {
+    var sticky = header.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset > sticky) {
+            header.classList.add("sticky");
+        } else {
+            header.classList.remove("sticky");
+        }
     }
+} else {
+
 }
-
-// burger menu
-var burger = document.querySelector('.burger img');
-var closeIcon = document.querySelector('.close-icon');
-var btnBurger = document.querySelector('.burger__btn')
-var body = document.body;
-var menuItems = document.querySelectorAll('.menu-item a');
-
-menuItems.forEach(function (item) {
-    item.addEventListener('click', function () {
-        body.classList.remove('_lock', 'open-burger');
-    });
-});
-
-burger.addEventListener('click', function () {
-
-    body.classList.add('_lock', 'open-burger');
-});
-
-closeIcon.addEventListener('click', function () {
-
-    body.classList.remove('_lock', 'open-burger');
-});
-btnBurger.addEventListener('click', function () {
-
-    body.classList.remove('_lock', 'open-burger');
-});
-
 
 // inputmask
 
