@@ -62,7 +62,7 @@ function wptheme_setup()
 	 * Add support for core custom logo.
 	 */
 	add_theme_support(
-		'logo',
+		'custom-logo',
 		array(
 			'height'      => 250,
 			'width'       => 250,
